@@ -9,9 +9,9 @@
         <relativePath/>
     </parent>
     <groupId>com.atguigu</groupId>
-    <artifactId>gmall-pulisher</artifactId>
+    <artifactId>gmall-publisher</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>gmall-pulisher</name>
+    <name>gmall-publisher</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

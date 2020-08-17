@@ -1,0 +1,2 @@
+SpringBoot主要分为Controller(相当于服务员)/Service(相当于厨师)/DAO三层(相当于采购);
+调用顺序为Controller->Service->DAO,因此定义顺序应为DAO->Service->Controller;

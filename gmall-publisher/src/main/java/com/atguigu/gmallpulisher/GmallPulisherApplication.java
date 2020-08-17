@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @MapperScan(basePackages = "com.atguigu.gmallpulisher.mapper")
-
 public class GmallPulisherApplication {
 
 	public static void main(String[] args) {

@@ -20,7 +20,7 @@
         <module>gmallmocker</module>
         <module>gmalllogger</module>
         <module>gamllrealtime</module>
-        <module>gmall-pulisher</module>
+        <module>gmall-publisher</module>
         <module>dw-chart</module>
     </modules>
 
