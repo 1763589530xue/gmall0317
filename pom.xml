@@ -20,8 +20,10 @@
         <module>gmallmocker</module>
         <module>gmalllogger</module>
         <module>gamllrealtime</module>
+        <module>gamllrealtime_review1</module>
         <module>gmall-publisher</module>
         <module>dw-chart</module>
+        <module>gmallcanal</module>
     </modules>
 
     <properties>

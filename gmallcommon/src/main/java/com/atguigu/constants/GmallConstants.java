@@ -5,6 +5,16 @@ package com.atguigu.constants;
  * @create 2020-08-15 9:11
  */
 public class GmallConstants {
-    public static final String GMALL_TOPIC_START="Topic_Start";
-    public static final String GMALL_TOPIC_EVENT="Topic_Event";
+    public static final String GMALL_TOPIC_START = "Topic_Start";
+    public static final String GMALL_TOPIC_EVENT = "Topic_Event";
+    public static final String GMALL_TOPIC_ORDER_INFO = "TOPIC_ORDER_INFO";
+
+
+    //订单详情主题
+    public static final String GMALL_TOPIC_ORDER_DETAIL = "TOPIC_ORDER_DETAIL";
+    //用户信息主题
+    public static final String GMALL_TOPIC_USER_INFO = "TOPIC_USER_INFO";
+    //ES中预警日志索引前缀
+    public static final String GMALL_ES_ALERT_INFO_PRE = "gmall_coupon_alert";
+
 }
