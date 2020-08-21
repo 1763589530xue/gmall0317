@@ -13,10 +13,10 @@ import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.dstream.{DStream, InputDStream}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
-import redis.clients.jedis.Jedis
 import org.apache.phoenix.spark._
 
-/**
+
+/*
   * @author xjp
   */
 

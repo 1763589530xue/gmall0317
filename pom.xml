@@ -24,6 +24,7 @@
         <module>gmall-publisher</module>
         <module>dw-chart</module>
         <module>gmallcanal</module>
+        <module>gmallcanal_review1</module>
     </modules>
 
     <properties>

@@ -6,64 +6,59 @@ import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.Message;
 import com.atguigu.constants.GmallConstants;
-import com.atguigu.utils.MyKafkaSender;
+import com.atguigu.utils.MyKafkaProducer1;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-
 import java.net.InetSocketAddress;
 import java.util.List;
-import java.util.Random;
+
 
 /**
  * @author xjp
- * @create 2020-08-18 14:48
+ * @create 2020-08-19 20:25
  */
-public class CanalClient {
+public class CanalClient1 {
     public static void main(String[] args) {
-        // 1.获取canal连接
-        CanalConnector canalConnector = CanalConnectors.newSingleConnector(
-                new InetSocketAddress("warehousehadoop102", 11111),
-                "example", "", "");
 
-        // 2.对msg数据进行处理
-        while (true) {
+       /* CanalConnector canalConnector = CanalConnectors.newSingleConnector(new InetSocketAddress("warehousehadoop102", 11111),
+                "example",
+                "",
+                "");
 
-            //  a.获取连接
+        while (true) {  //此处canal需要长轮询不断地监视mysql中数据的变化情况
             canalConnector.connect();
+            canalConnector.subscribe("gmall200317.*");  //设置要监控的表
 
-            //  b.订阅要监控的表(gmall2020317数据库的所有表)
-            canalConnector.subscribe("gmall200317.*");
-
-            //  c.指定每次连接获取的信息数
             Message message = canalConnector.get(100);
 
-            List<CanalEntry.Entry> entries = message.getEntries();
-            if (entries.size() == 0) {
-                System.out.println("没有抓取到数据！");
+            if (message == null) {
+                System.out.println("未抓取到数据！");
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             } else {
-                for (CanalEntry.Entry entry : entries) {
-                    // d.对Entry Type进行筛选，只保留rowdata类型的数据
-                    if (CanalEntry.EntryType.ROWDATA.equals(entry.getEntryType())) {
 
+                List<CanalEntry.Entry> entries = message.getEntries();
+                for (CanalEntry.Entry entry : entries) {
+
+                    CanalEntry.EntryType entryType = entry.getEntryType();
+                    if (CanalEntry.EntryType.ROWDATA.equals(entryType)) {
                         try {
                             String tableName = entry.getHeader().getTableName();
-                            ByteString storeValues = entry.getStoreValue();
-                            // e.对storeValues进行反序列化，使用RowChange类
-                            CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(storeValues);
+                            ByteString storeValue = entry.getStoreValue();
 
-                            //f.获取事件类型
+                            //进行反序列化
+                            CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(storeValue);
+
+                            //获取事件类型
                             CanalEntry.EventType eventType = rowChange.getEventType();
 
-                            //g.获取数据
                             List<CanalEntry.RowData> rowDatasList = rowChange.getRowDatasList();
 
-                            //h.封装方法处理反序列化的数据
+                            //封装方法处理数据
                             handler(tableName, eventType, rowDatasList);
 
                         } catch (InvalidProtocolBufferException e) {
@@ -81,11 +76,9 @@ public class CanalClient {
         if ("order_info".equals(tableName) && CanalEntry.EventType.INSERT.equals(eventType)) {
             // 将满足要求的数据写入kafka指定主题中
             sendToKafka(rowDatasList, GmallConstants.GMALL_TOPIC_ORDER_INFO);
-
         } else if ("order_detail".equals(tableName) && CanalEntry.EventType.INSERT.equals(eventType)) {
             sendToKafka(rowDatasList, GmallConstants.GMALL_TOPIC_ORDER_DETAIL);
-
-        } else if ("user_info".equals(tableName) && (CanalEntry.EventType.INSERT.equals(eventType) || CanalEntry.EventType.UPDATE.equals(eventType))) {
+        } else if ("user_info".equals(tableName) && (CanalEntry.EventType.INSERT.equals(eventType)|| CanalEntry.EventType.UPDATE.equals(eventType))) {
             sendToKafka(rowDatasList, GmallConstants.GMALL_TOPIC_USER_INFO);
         }
     }
@@ -100,17 +93,10 @@ public class CanalClient {
             for (CanalEntry.Column column : afterColumnsList) {
                 jsonObject.put(column.getName(), column.getValue());
 
-                //每条数据输出和写入kafka前均延迟几秒
-                try {
-                    Thread.sleep(new Random().nextInt(5 * 1000));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
                 //将JSON对象打印出来并发送至kafka中
                 System.out.println(jsonObject.toString());
-                MyKafkaSender.send(topic, jsonObject.toString());
+                MyKafkaProducer1.send(topic, jsonObject);
             }
-        }
+        }*/
     }
 }

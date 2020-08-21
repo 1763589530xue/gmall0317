@@ -25,6 +25,7 @@ public class MyKafkaSender {
         prop.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 
         KafkaProducer<String, String> producer = new KafkaProducer<>(prop);
+
         return producer;
     }
 
