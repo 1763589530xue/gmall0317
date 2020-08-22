@@ -46,7 +46,7 @@ object MyEsUtil {
   }
 
   //  4.批量插入数据到ES
-  def insertByBulk(indexName: String, typeName: String, list: List[(String, CouponAlertInfo)]): Unit = {
+  def insertByBulk(indexName: String, typeName: String, list: List[(String, Any)]): Unit = {
 
     //  a.集合判空
     if (list.size != 0) {

@@ -1,7 +1,7 @@
+package com.atguigu.bean
+
 import java.text.SimpleDateFormat
 import java.util
-
-import com.atguigu.bean.{OrderDetail, OrderInfo, UserInfo}
 
 case class SaleDetail(
                        var order_detail_id:String =null,

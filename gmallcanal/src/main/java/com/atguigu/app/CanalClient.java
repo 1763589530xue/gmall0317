@@ -15,10 +15,7 @@ import java.net.InetSocketAddress;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author xjp
- * @create 2020-08-18 14:48
- */
+
 public class CanalClient {
     public static void main(String[] args) {
         // 1.获取canal连接
@@ -47,7 +44,7 @@ public class CanalClient {
                     e.printStackTrace();
                 }
             } else {
-                for (CanalEntry.Entry entry : entries) {
+                for (CanalEntry.Entry entry : message.getEntries()) {
                     // d.对Entry Type进行筛选，只保留rowdata类型的数据
                     if (CanalEntry.EntryType.ROWDATA.equals(entry.getEntryType())) {
 
@@ -99,18 +96,18 @@ public class CanalClient {
             JSONObject jsonObject = new JSONObject();
             for (CanalEntry.Column column : afterColumnsList) {
                 jsonObject.put(column.getName(), column.getValue());
-
-                //每条数据输出和写入kafka前均延迟几秒
-                try {
-                    Thread.sleep(new Random().nextInt(5 * 1000));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                //将JSON对象打印出来并发送至kafka中
-                System.out.println(jsonObject.toString());
-                MyKafkaSender.send(topic, jsonObject.toString());
             }
+
+            //每条数据输出和写入kafka前均延迟几秒
+           /* try {
+                Thread.sleep(new Random().nextInt(2 * 1000));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
+
+            //将JSON对象打印出来并发送至kafka中
+            System.out.println(jsonObject.toString());
+            MyKafkaSender.send(topic, jsonObject.toString());
         }
     }
 }

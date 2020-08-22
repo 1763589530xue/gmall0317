@@ -17,10 +17,10 @@ object MyKafkaUtil {
 
   //2.用于初始化链接到集群的地址
   val broker_list: String = properties.getProperty("kafka.broker.list")
-  private val group_id: String = properties.getProperty("kafka.group.id")
+  val group_id: String = properties.getProperty("kafka.group.id")
 
   //3.kafka消费者配置
-  val kafkaParam = Map[String, Object](
+  val kafkaParam = Map(
     //  下行一般通过调用ConsumerConfig属性的方法来获取(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG)
 
     "bootstrap.servers" -> broker_list,
@@ -52,5 +52,4 @@ object MyKafkaUtil {
 
     dStream
   }
-
 }
